@@ -1,45 +1,59 @@
 ---
-title: "Your A4 Report Title (TODO: Revise title)"
-author: "Your Name"
-date: '2022-11-01'
+title: "Patterns of Incarceration Inequality in the U.S."
+author: "Kailynn Nguyen"
+date: '2022-11-21'
 output: html_document
 ---
 
-```{r echo=FALSE, eval=TRUE, message=FALSE}
+```{r, include=FALSE}
 source("../source/a4-helpers.R")
 source("../source/analysis.R")
 ```
 
+
 ## Abstract 
-[TODO: Include a short abstract (about 50 words)]
-
-# Test (TODO: Remove before submission!!)
-```{r echo=FALSE}
-q1_string <- test_query1()
-num <- 5
-```
-As you know, this is a markdown report. The [R Markdown Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) is **useful!**
-
-* Here's a test of a dynamic variable. Say **"`r q1_string`!!!** 
-* Here's another test. A vector
-of numbers: `r test_query2(num)`.
-
-Recall that _{r echo=TRUE}_ can be used to display the code, 
-which is very useful when developing and debugging a report. Here's an example: 
-
-```{r echo=TRUE}
-num <- 5
-sum <- sum(test_query2(num))
-print(sum)
-```
+Issues of discrimination and racism in the United States justice system is nothing unheard of and is a topic that has continued to persist. This assignment is concerned with exposing patterns of inequality using incarceration data collected by Vera Institute. Such patterns will be exposed through the use of data analysis and visualizations.
 
 ## Introduction 
-[TODO]
+The social and political structures implemented in the system have become the reason for disproportionate incarceration of people of color. According to an article published by The Sentencing Project, “The latest available data regarding people sentenced to state prison reveal that Black Americans are imprisoned at a rate that is roughly five times the rate of white Americans.” A disparity as sizable as this contributes to stereotypes that categorizes one race as being more crime prone than others which is extremely harmful. As a result of disproportionate incarceration of people of color, these stereotypes are reinforced and are present in forms of discrimination in employment and access to economic opportunity. Referencing the Brennan Center for Justice, “White people who have a prison record see their earnings trend upwards, while formerly imprisoned Black and Latino people experience a relatively flat earnings trajectory.” There is more attention needed and reformation for this issue as those that are often socially and economically disadvantaged, including those in poverty, are a racial minority, and have low education are the ones suffering a lifetime of injustice.
+
+
+```{r, echo=FALSE}
+print(plot_jail_pop_for_us())
+```
+Figure 1. This figure shows the growth trend of the United States prison from 1970-2018. 
+
+As can be seen in the chart, as the years have progressed, the number of people incarcerated has increased dramatically. From the years 1970 to 1978, the number of individuals jailed stayed fairly consistent. However, the trend begins to dramatically shift in the years 1980-2008, and the growth pattern is most notably observed.
 
 ## Data Summary 
-[TODO]
+The total number of observations made in all counties from the years 1970 to 2018 was 153,811. This number accounts for all the counties in the United States, respectively, that have recorded the total population as well as the number of individuals of each race that have been incarcerated. Such data is valuable as it allows researchers to access incarceration rates and determine how patterns of inequality in incarcerations are present. The data suggests that California is the state with the highest number of incarcerations in the year 2018. Furthermore, data shows that the highest number of black individuals incarcerated in a county in 2018 was 5,024, while the highest number of white individuals incarcerated in a county in 2018 was 4,577. Although these numbers are not that far apart, in order to understand this topic, other factors such as population size, location, and state play a role in these numbers. 
 
-[TODO ... other sections ... See Canvas for details]
+```{r, echo=FALSE}
+print(plot_jail_pop_by_states())
+```
+Figure 2. This figure displays the growth of prison population for the states of California, Florida, New York, Oregon, and Washington. 
 
-_All the very best with your work!_
+The chart shows the prison population for these states of California, Florida, New York, Oregon, and Washington and compares them to one another. Over the years, from 1970 to 2018, the number of incarcerations have varied from state to state. As can be seen, California had the most incarcerations, followed by New York, Florida, Washington, and Oregon.
+
+```{r, echo=FALSE}
+  done_pie_chart <-
+    slices <- c(2579, 5024)
+    lbls <- c("White", "Black")
+    pct <- round(slices/sum(slices)*100)
+    lbls <- paste(lbls, pct) # add percents to labels
+    lbls <- paste(lbls,"%",sep="") # ad % to labels
+    pie(slices,labels = lbls, col=rainbow(length(lbls)),
+        main="Figure 3. County with Highest Black and White 
+      Incarcerations in California (2018)")
+```
+Figure 3. This pie chart shows the proportion of the county with the highest number white and black individuals incarcerated in the state of California. 
+
+The state of California was selected for this analysis as it is the state with the highest number of incarcerations overall. A question relevant to the topic of this assignment is “Are black individuals unproportionately incarcerated compared to white individuals?” The pie chart shows the proportion of the county with the highest number white and black individuals incarcerated in the state of California. As can be seen, black individuals are represented by about 66% while white individuals make up only 34% of this proportion. That is about a 3:1 ratio of black individuals in jail in comparison to white people in jail.
+
+```{r, echo=FALSE}
+print(trends_map)
+```
+Figure 4. This geographic map presents the proportion of black individuals incarcerated in the counties of Washington state in 2018. 
+
+As a resident living in Washington, one may be curious and ask the question “What is the distribution of black individuals incarcerated in Washington?” This map helps to answer this question as it displays, with the help of different colors, the number of individuals incarcerated in each county. As can be seen, the majority of the map is yellow which suggests that many counties have made less than 250 arrests. However, King County is notably red which indicates that it is the county with the highest number of black individuals incarcerated. 
 
