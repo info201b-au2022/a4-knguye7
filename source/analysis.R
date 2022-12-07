@@ -57,9 +57,11 @@ summary_info$highest_white_jail <- trends %>%
 
 #----------------------------------------------------------------------------#
 
-## Section 3  ---- 
+
+## REVISED: Section 3: Changed the y-axis labels so that the numbers are no longer in scientific notation
 library(dplyr)
 library(ggplot2)
+library(scales)
 #----------------------------------------------------------------------------#
 # Growth of the U.S. Prison Population
 #----------------------------------------------------------------------------#
@@ -78,34 +80,43 @@ plot_jail_pop_for_us <- function() {
     geom_bar(stat = "identity") +
     xlab ("Year") + 
     ylab("Total Jail Population") +
+    scale_y_continuous(labels = comma) + 
     ggtitle("Figure 1. Growth of the U.S. Prison Population from 1970-2018")
+    
   return(ggplot_prison_growth)
 }
 plot(plot_jail_pop_for_us())
 
-## Section 4  ---- 
+## REVISED Section 4: Graph now shows one line pers state through the years 1970-2018  ---- 
 #----------------------------------------------------------------------------#
-# Growth of Prison Population by State 
-
+# Function filters out out data from states
 get_year_jail_pop_by_states <- function(states) {
   df_by_states <- trends %>%
-    select(year, total_jail_pop, state) %>%
-    drop_na() %>%
-    filter(str_detect(state, c("WA", "OR", "FL", "CA", "NY")))
+    filter(state %in% states) %>%
+    group_by(year, state) %>%
+    summarize(total_jail_pop_states = sum(total_jail_pop, na.rm = T))
   return(df_by_states)
 }
 
 
 plot_jail_pop_by_states <- function(states) {
-  line_graph_growth <-
-    ggplot(data = get_year_jail_pop_by_states(), aes(x = year, y = total_jail_pop, color = state)) +
-      geom_line() +
-      xlab("Year") +
-      ylab("Total Jail Population") +
-      ggtitle("Figure 2. Growth of Prison Population by State")
-  return(line_graph_growth)
+  title <- "Increase of Jail Population in U.S. States (1970-2018)"
+  caption <- 'Data extracted from Vera Institute of Justice'
+  legend_x <- "Year"
+  legend_y <- "Total Jail Population"
+
+  plot <- get_year_jail_pop_by_states(states) %>%
+    ggplot() + 
+    geom_line(mapping = aes( x = year, y = total_jail_pop_states, group = state, color = state)) +
+    scale_y_continuous(labels = scales::comma) +
+    labs(
+      x = legend_x,
+      y = legend_y,
+      title = title,
+      caption = caption
+    )
+  return(plot)
 }
-plot(plot_jail_pop_by_states())
 
 
 # plot_jail_pop_by_states <- function(states) {

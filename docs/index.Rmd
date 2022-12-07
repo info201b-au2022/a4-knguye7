@@ -28,12 +28,12 @@ As can be seen in the chart, as the years have progressed, the number of people 
 ## Data Summary 
 The total number of observations made in all counties from the years 1970 to 2018 was 153,811. This number accounts for all the counties in the United States, respectively, that have recorded the total population as well as the number of individuals of each race that have been incarcerated. Such data is valuable as it allows researchers to access incarceration rates and determine how patterns of inequality in incarcerations are present. The data suggests that California is the state with the highest number of incarcerations in the year 2018. Furthermore, data shows that the highest number of black individuals incarcerated in a county in 2018 was 5,024, while the highest number of white individuals incarcerated in a county in 2018 was 4,577. Although these numbers are not that far apart, in order to understand this topic, other factors such as population size, location, and state play a role in these numbers. 
 
-```{r, echo=FALSE}
-print(plot_jail_pop_by_states())
+```{r, echo=FALSE, message=FALSE ,warning=FALSE}
+print(plot_jail_pop_by_states(c("WA", "CA", "FL", "OR", "NY")))
 ```
-Figure 2. This figure displays the growth of prison population for the states of California, Florida, New York, Oregon, and Washington. 
+Figure 2. This figure displays the growth of prison population for a few states in the United States (California, Florida, New York, Oregon, and Washington). 
 
-The chart shows the prison population for these states of California, Florida, New York, Oregon, and Washington and compares them to one another. Over the years, from 1970 to 2018, the number of incarcerations have varied from state to state. As can be seen, California had the most incarcerations, followed by New York, Florida, Washington, and Oregon.
+The chart shows the prison population for these states of California, Florida, New York, Oregon, and Washington and compares them to one another. Over the years, from 1970 to 2018, the number of incarcerations have varied from state to state. As can be seen, California had the most incarcerations, followed by Florida, New York, Washington, and Oregon.
 
 ```{r, echo=FALSE}
   done_pie_chart <-
